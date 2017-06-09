@@ -1,4 +1,4 @@
-package main
+package itempmt
 
 type PMTArmor struct {
 	id            uint32
