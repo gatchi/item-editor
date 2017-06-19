@@ -8,13 +8,9 @@ import (
 	"os"
 )
 
-const (
-	itemPmtFile = "bin/ItemPMT.bin"
-)
+const itemPmtFile = "bin/ItemPMT.bin"
 
-var (
-	ip = flag.Int("num", 1, "the num to print")
-)
+var ip = flag.Int("num", 1, "the num to print")
 
 func main() {
 	flag.Parse()
