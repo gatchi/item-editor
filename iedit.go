@@ -27,7 +27,7 @@ import (
 
 const itemPmtFile = "bin/ItemPMT.bin"
 
-var ip = flag.Int("num", 1, "the num to print")
+var table = flag.String("table", "", "The main table to select")
 
 func main() {
 	flag.Parse()
@@ -58,7 +58,26 @@ func main() {
 	}
 	
 	// Read the address
-	var startAddr int32
+	var startAddr int64
 	binary.Read(file, binary.LittleEndian, &startAddr)
 	fmt.Printf("Addr: %X\n", startAddr)
+
+	// Go to the bin table based on the offset in the lookup table
+	if *table == "" {
+		// Ask for table
+		// (implement)
+		println("Using default table.")
+	} else {
+		println(itempmt.Offset[*table])
+	}
+
+	offset, err = file.Seek(startAddr + itempmt.Offset[*table], 0)
+	if err != nil {
+		println("Cant seek.")
+	} else {
+		fmt.Printf("New address: %X\n", offset)
+	}
+	var tableAddr int32
+	binary.Read(file, binary.LittleEndian, &tableAddr)
+	fmt.Printf("Table addr: %X\n", tableAddr)
 }
